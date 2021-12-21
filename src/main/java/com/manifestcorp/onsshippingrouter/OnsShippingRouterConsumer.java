@@ -18,7 +18,7 @@ public class OnsShippingRouterConsumer {
 
     @KafkaListener(topics = "${k.topic.consumer.name}")
     public void listener(Order order){
-        kafkaTemplate.send(outputTopic, order.getOrderId(), order);
+        kafkaTemplate.send(outputTopic, order);
     }
 
 
