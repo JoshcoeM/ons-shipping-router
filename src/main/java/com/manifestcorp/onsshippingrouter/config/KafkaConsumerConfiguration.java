@@ -25,6 +25,9 @@ public class KafkaConsumerConfiguration {
     @Value("${k.topic.consumer.name")
     String topicName;
 
+    @Value("${spring.kafka.consumer.group-id}")
+    String groupId;
+
     @Value("${spring.kafka.bootstrap-servers}")
     String bootstrapServer;
 
@@ -35,6 +38,7 @@ public class KafkaConsumerConfiguration {
         props.put(SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081" );
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
         return props;
     }
@@ -45,7 +49,7 @@ public class KafkaConsumerConfiguration {
     }
 
     @Bean
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<Integer, Order>> kafkaConsumerContainerFactory(){
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<Integer, Order>> kafkaListenerContainerFactory(){
         ConcurrentKafkaListenerContainerFactory<Integer, Order> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
