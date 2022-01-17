@@ -20,7 +20,7 @@ import java.util.Map;
 import static io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG;
 
 @Configuration
-public class KafkaConsumerConfiguration {
+public class  KafkaConsumerConfiguration {
 
     @Value("${k.topic.consumer.name")
     String topicName;
@@ -35,7 +35,7 @@ public class KafkaConsumerConfiguration {
     public Map<String, Object> consumerConfigs(){
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer );
-        props.put(SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081" );
+        props.put(SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8089" );
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
